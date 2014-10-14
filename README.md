@@ -5,13 +5,11 @@
 Yat uses the sendgrid API, and won the sendgrid API prize at Calhacks 2014. The following codebase does not contain any API keys and so does not work right away.
 
 ###APIs
-Yat makes use of Google Maps API
-
-Yelp's API
-
-Wit.Ai's Natural Language Processing API
+- Google Maps API
+- Yelp's API
+- Wit.Ai's Natural Language Processing API
+- Sendgrid Parse Webhook
 
 ###Technologies
-Node.js
-
-Mongodb
+- Node.js
+- Mongodb
