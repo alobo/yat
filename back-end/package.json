@@ -1,0 +1,29 @@
+{
+  "name": "YAT",
+  "version": "0.1.2",
+  "description": "A simple way to share your location with friends, with email",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "express": "~4.9.x",
+    "mongoose": "*",
+    "body-parser": "*",
+    "underscore": "*",
+    "connect-multiparty": "*",
+    "nodemailer": "*",
+    "nodemailer-smtp-transport": "*",
+    "node-wit": "*",
+    "node-geocoder": "*",
+    "yelp": "*"
+  },
+  "engines": {
+    "node": "0.10.x"
+  },
+  "keywords": [
+    "node",
+    "express"
+  ],
+  "license": "MIT"
+}
