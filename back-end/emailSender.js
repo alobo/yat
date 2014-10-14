@@ -4,31 +4,6 @@ var nodemailer = require("nodemailer"),
 
 var emailDataAggregator = require('./emailDataAggregator.js');
 
-// exports.request = function() {
-//     return 123;
-// }
-
-// exports.testMail = function() {
-
-//     // setup e-mail data with unicode symbols
-//     var mailOptions = {
-//         from: 'Yat Confirmation <yat@confirmation.loboaaron.com>', // sender address
-//         to: 'lobo.aaron1@gmail.com', // list of receivers
-//         subject: 'Hello Test 4 ✔', // Subject line
-//         text: 'Hello world ✔', // plaintext body
-//         html: '<b>Hello world ✔</b>' // html body
-//     }
-
-//     // send mail with defined transport object
-//     smtpTransport.sendMail(mailOptions, function(error, response){
-//         if(error){
-//             console.log(error);
-//         }else{
-//             console.log('Message sent: ' + response.message);
-//         }
-//     });
-// }
-
 exports.sendInvitation = function(recipients, eventDetails) {
     console.log('LOOOG', emailDataAggregator);
     //Get relevent data from Yelp & OpenWeather then actually send emails
