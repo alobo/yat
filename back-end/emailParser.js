@@ -1,5 +1,4 @@
-var WIT_API_KEY = "";
-var GMAPS_API_KEY = "";
+var constants = require('./constants');
 
 var wit = require('node-wit');
 var result = {}
@@ -22,7 +21,7 @@ function checkFoodWanted(bodyText) {
 }
 
 function applyNLP(bodyText) {    
-    wit.captureTextIntent(WIT_API_KEY, bodyText, function (err, res) {
+    wit.captureTextIntent(constants.WIT_API_KEY, bodyText, function (err, res) {
         // console.log("Response from Wit for text input: ");  
         if (err) return console.log("Error: ", err);
         // console.log(JSON.stringify(res, null, " "));
@@ -53,7 +52,7 @@ function getLatLng(address) {
     var geocoderProvider = 'google';    
     var httpAdapter = 'https';
     var extra = {
-        apiKey: GMAPS_API_KEY,
+        apiKey: constants.GOOGLE_MAPS_API_KEY,
         formatter: null
     };
 

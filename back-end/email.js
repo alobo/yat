@@ -1,3 +1,5 @@
+var constants = require('./constants');
+
 var nodemailer = require("nodemailer");
 var smtpTransport = nodemailer.createTransport();
 var _ = require('underscore');
@@ -68,7 +70,7 @@ exports.sendInvitation = function(recipients) {
 
 
         var mailOptions = {
-            from: "Yat Confirmation <@@_YATS_EMAIL_@@>", // sender address
+            from: "Yat Confirmation <" + constants.YAT_EMAIL + ">", // sender address
             to: self.email, // list of receivers
             subject: "Yat Confirmation", // Subject line
             text: invitationString,

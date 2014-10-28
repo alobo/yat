@@ -1,3 +1,5 @@
+var constants = require('./constants');
+
 var _ = require('underscore');
 var express = require('express');
 var bodyParser = require('body-parser');
@@ -34,7 +36,7 @@ db.once('open', function() {
 	console.log('connected');
 });
 
-mongoose.connect('@@_MONGO_DB_@@');
+mongoose.connect(constants.MONGODB_URL);
 
 var eventSchema = new Schema({
 	name: String,

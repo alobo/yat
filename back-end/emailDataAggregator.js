@@ -1,8 +1,4 @@
-var YELP_CONSUMER_KEY = "";
-var YELP_CONSUMER_SECRET = "";
-var YELP_TOKEN = "";
-var YELP_TOKEN_SECRET = "";
-
+var constants = require('./constants');
 
 var http = require('http');
 var result = {}
@@ -54,10 +50,10 @@ function checkFood(eventDetails) {
     if (eventDetails.wantFood) {
 
         var yelp = require("yelp").createClient({
-            consumer_key: YELP_CONSUMER_KEY, 
-            consumer_secret: YELP_CONSUMER_SECRET,
-            token: YELP_TOKEN,
-            token_secret: YELP_TOKEN_SECRET
+            consumer_key: constants.YELP_CONSUMER_KEY, 
+            consumer_secret: constants.YELP_CONSUMER_SECRET,
+            token: constants.YELP_TOKEN,
+            token_secret: constants.YELP_TOKEN_SECRET
         });
 
         // See http://www.yelp.com/developers/documentation/v2/search_api
