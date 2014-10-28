@@ -1,0 +1,7 @@
+{
+  "name": "Yat",
+  "description": "Yat is a way to find and share your friends' locations",
+  "repository": "https://github.com/qimingweng/yat",
+  "logo": "http://node-js-sample.herokuapp.com/node.svg",
+  "keywords": ["node", "yat"]
+}
