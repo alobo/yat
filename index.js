@@ -20,38 +20,33 @@ app.use(multipart());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use(function(req, res, next) {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With, content-type');
-    res.setHeader('Access-Control-Allow-Credentials', true);
-    next();
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With, content-type');
+  res.setHeader('Access-Control-Allow-Credentials', true);
+  next();
 });
 
 // Setup database connection
 db.on('error', console.log);
 db.once('open', function() {
-	 console.log('Connected to mongodb');
+  console.log('Connected to mongodb');
 });
 mongoose.connect(constants.MONGODB_URL);
 
 
-var server = app.listen(process.env.PORT || 5000, function() {
-    console.log('Listening on port %d', server.address().port);
-});
-
+// Setup endpoints
 app.get('/', function(req, res) {
-	res.send('Welcome!');
+  res.send('Welcome!');
 });
 
 app.get('/recipient/:id', function(req, res) {
-	console.log('get recipient', req.params.id);
+  console.log('get recipient', req.params.id);
 
-	Recipient.findById(req.params.id, function(err, recipient) {
-		console.log('something');
-
-		if (err) return console.log(err);
-		return res.send(recipient).end();
-	});
+  Recipient.findById(req.params.id, function(err, recipient) {
+  	if (err) return console.log(err);
+  	return res.send(recipient).end();
+  });
 });
 
 app.post('/recipient/:id', function(req, res) {
@@ -63,7 +58,7 @@ app.post('/recipient/:id', function(req, res) {
 
 	    recipient.save(function (err) {
 			if (err) console.log(err);
-			return res.send(recipient).end();
+			  return res.send(recipient).end();
 	    });
 	});
 });
@@ -76,12 +71,10 @@ app.get('/event/:id', function(req, res) {
 });
 
 app.get('/session/:recipientID', function(req, res) {
-	// console.log('BLAHBLAHBLAH');
-	// res.send('blah').status(506).end();
 	Recipient.findById(req.params.recipientID, function(err, recipient) {
 		if (err) return console.error(err);
 		if (!recipient) {
-			return res.send('no recipient').status(9000).end();
+			return res.send('no recipient').status(400).end();
 		}
 		Event.findById(recipient.eventID, function(err, event) {
 			if (err) return console.error(err);
@@ -97,14 +90,9 @@ app.get('/session/:recipientID', function(req, res) {
 	});
 });
 
-app.get('/def', function(req, res) {
-	res.send('hey');
-	console.log('def');
-});
-
 app.post('/event', function(req, res) {
 	// Create event
-    console.log('req body', req.body);
+  console.log('req body', req.body);
 
 	var eventFields = {
 		name: req.body.subject,
@@ -120,74 +108,70 @@ app.post('/event', function(req, res) {
 	recipients.push(formattedHost);
 
 	// Parses email and updates database
-    emailParser.parseEmail(req.body.text, function(output) {
-    	if (output.lat && output.lng) {
-    		eventFields.lat = output.lat;
-    		eventFields.lng = output.lng;
-    	}
-    	if (output.date) eventFields.eventTime = output.date;
-        if (output.address) eventFields.address = output.address;
-        if (output.city) eventFields.city = output.city;
-        if (output.wantFood) eventFields.wantFood = output.wantFood;
+  emailParser.parseEmail(req.body.text, function(output) {
+  	if (output.lat && output.lng) {
+  		eventFields.lat = output.lat;
+  		eventFields.lng = output.lng;
+  	}
 
-    	console.log('eventFields', eventFields);
+    if (output.date) eventFields.eventTime = output.date;
+    if (output.address) eventFields.address = output.address;
+    if (output.city) eventFields.city = output.city;
+    if (output.wantFood) eventFields.wantFood = output.wantFood;
 
-    	var complete = _.after(recipients.length, function() {
-    		emailSender.sendInvitation(savedRecipients, event);
+  	console.log('eventFields', eventFields);
 
-    		res.send({
-    			event: event,
-    			recipients: savedRecipients
-    		});
-    		res.status(200).end();
-    	});
+  	var complete = _.after(recipients.length, function() {
+  		emailSender.sendInvitation(savedRecipients, event);
 
-    	var savedRecipients = [];
-    	// Saves to database
-    	var event = new Event(eventFields);
-    	event.save(function (err, r) {
-    		if (err) return console.error(err);
+  		res.send({
+  			event: event,
+  			recipients: savedRecipients
+  		});
+  		res.status(200).end();
+  	});
 
-    		_(recipients).each(function(recipient) {
-    			var recipientDB = new Recipient({
-    				name: recipient.name,
-    				email: recipient.email,
-    				isHost: recipient.isHost,
-    				eventID: r.id
-    			});
-    			recipientDB.save(function(err, res) {
-    				if (err) return console.error(err);
-    				savedRecipients.push(res);
-    				complete();
-    			});
-    		});
-    	});
+  	var savedRecipients = [];
+  	// Saves to database
+  	var event = new Event(eventFields);
+  	event.save(function (err, r) {
+  		if (err) return console.error(err);
 
-	});
+  		_(recipients).each(function(recipient) {
+  			var recipientDB = new Recipient({
+  				name: recipient.name,
+  				email: recipient.email,
+  				isHost: recipient.isHost,
+  				eventID: r.id
+  			});
+  			recipientDB.save(function(err, res) {
+  				if (err) return console.error(err);
+  				savedRecipients.push(res);
+  				complete();
+  			});
+  		});
+  	});
+  });
 
-    // var results = {
-    //         wantFood: true,
-    //         date: 1412640000000,
-    //         lat: 37.545733,
-    //         lng: -122.257973,
-    //         city: 'Foster City',
-    //         country: 'United States'
-    //     };
+  function formatNameAndEmail(str) {
+  	if (str.indexOf('<') >= 0) {
+  		var name = str.match(/.*(?=<)/g);
+  		var email = str.match(/<(.*)>/);
+  		return {
+  			name: name[0].trim(),
+  			email: email[1].trim()
+  		}
+  	} else {
+  		var name = str.match(/.*(?=@)/g);
+  		return {
+  			name: name[0].trim(),
+  			email: str.trim()
+  		}
+  	}
+  }
 
-    function formatNameAndEmail(str) {
-    	if (str.indexOf('<') >= 0) {
-    		var name = str.match(/.*(?=<)/g);
-    		var email = str.match(/<(.*)>/);
-    		return {
-    			name: name[0].trim(),
-    			email: email[1].trim()
-    		}
-    	} else {
-    		var name = str.match(/.*(?=@)/g);
-    		return {
-    			name: name[0].trim(),
-    			email: str.trim()
-    		}
-    	}
-    }
+});
+
+var server = app.listen(process.env.PORT || 5000, function() {
+    console.log('Listening on port %d', server.address().port);
 });
