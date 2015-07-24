@@ -1,0 +1,155 @@
+/* Reset */
+/* line 2, ../sass/style.scss */
+html, body, div, h1, h2, h3, h4, h5, h6, ul, ol, dl, li, dt, dd, p, a, blockquote, pre, fieldset, table, th, td, textarea, input, img {
+  margin: 0;
+  padding: 0;
+}
+
+/* line 4, ../sass/style.scss */
+a img {
+  border: none;
+}
+
+/* line 5, ../sass/style.scss */
+:focus {
+  outline: none;
+}
+
+/* line 6, ../sass/style.scss */
+.clear {
+  clear: both;
+}
+
+/* Global */
+/* line 9, ../sass/style.scss */
+body, html {
+  width: 100%;
+  height: 100%;
+}
+
+/* line 14, ../sass/style.scss */
+body {
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+/* line 18, ../sass/style.scss */
+#map, #no-recipient {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* line 26, ../sass/style.scss */
+#no-recipient {
+  box-sizing: border-box;
+  padding: 100px 20px 0;
+  display: none;
+  background: #ccc;
+  text-align: center;
+}
+/* line 34, ../sass/style.scss */
+#no-recipient h1, #no-recipient h2 {
+  font-weight: 300;
+  color: #666;
+}
+/* line 39, ../sass/style.scss */
+#no-recipient h1 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+/* line 40, ../sass/style.scss */
+#no-recipient h2 {
+  font-size: 18px;
+}
+
+/* line 43, ../sass/style.scss */
+#overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #ccc;
+}
+
+/* line 52, ../sass/style.scss */
+#yat-header {
+  position: absolute;
+  background-color: rgba(255, 255, 255, 0.95);
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 15px 0px;
+  text-align: center;
+  font-size: 20px;
+  box-shadow: 0px 0px 4px #000;
+}
+
+/* line 64, ../sass/style.scss */
+.overlay-name-wrap {
+  position: absolute;
+  top: 70px;
+  left: 0px;
+  width: 100%;
+  text-align: center;
+}
+
+/* line 72, ../sass/style.scss */
+.overlay-name {
+  display: inline-block;
+  color: white;
+  box-sizing: border-box;
+  padding: 10px 20px;
+  margin: 0 20px;
+  background-color: rgba(0, 0, 0, 0.75);
+  border-radius: 5px;
+}
+
+/* line 82, ../sass/style.scss */
+.welcome-dialog {
+  margin: 100px 20px 20px;
+  padding: 20px;
+  background: white;
+  border-radius: 10px;
+}
+/* line 88, ../sass/style.scss */
+.welcome-dialog h1 {
+  font-size: 24px;
+  font-weight: 300;
+  color: black;
+}
+/* line 94, ../sass/style.scss */
+.welcome-dialog h2 {
+  font-size: 18px;
+  font-weight: 400;
+  color: #333;
+}
+/* line 100, ../sass/style.scss */
+.welcome-dialog p {
+  color: #666;
+}
+/* line 104, ../sass/style.scss */
+.welcome-dialog h1, .welcome-dialog h2, .welcome-dialog p {
+  margin-bottom: 10px;
+}
+/* line 108, ../sass/style.scss */
+.welcome-dialog img {
+  vertical-align: middle;
+  margin-right: 5px;
+}
+
+/* line 114, ../sass/style.scss */
+.yat-btn {
+  display: block;
+  padding: 10px 0;
+  text-align: center;
+  color: white;
+  background-color: #ea125a;
+  border-radius: 5px;
+}
+/* line 122, ../sass/style.scss */
+.yat-btn:active {
+  background-color: #74082c;
+}
