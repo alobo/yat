@@ -1,3 +1,7 @@
+/**
+* This file is a temporary hack until we get Qiming's dialogController
+*/
+
 var dialogController = function () {};
 var dialogList = [];
 
