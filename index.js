@@ -9,6 +9,7 @@ var emailParser = require('./emailParser.js');
 var emailSender = require('./emailSender.js');
 
 var app = express();
+app.use(express.static('public'));
 app.use(multipart());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
@@ -86,7 +87,7 @@ app.post('/recipient/:id', function(req, res) {
 	Recipient.findById(req.params.id, function(err, recipient) {
 		recipient.lat = req.body.lat;
 	    recipient.lng = req.body.lng;
-	    
+
 	    console.log('recipient', recipient);
 
 	    recipient.save(function (err) {
@@ -146,7 +147,7 @@ app.post('/event', function(req, res) {
 	var to_array = req.body.to.split(',');
 	var recipients = _(to_array).map(formatNameAndEmail);
 	recipients.push(formattedHost);
-	
+
 	// Parses email and updates database
     emailParser.parseEmail(req.body.text, function(output) {
     	if (output.lat && output.lng) {
@@ -188,12 +189,12 @@ app.post('/event', function(req, res) {
     				savedRecipients.push(res);
     				complete();
     			});
-    		});		
+    		});
     	});
 
 	});
 
-    // var results = { 
+    // var results = {
     //         wantFood: true,
     //         date: 1412640000000,
     //         lat: 37.545733,
