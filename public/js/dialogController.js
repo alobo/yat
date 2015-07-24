@@ -14,9 +14,9 @@ dialogController.dismissAllDialogs = function () {
 };
 
 dialogController.preventDismiss = function () {
-  throw 'preventDismiss not implemented';
+  console.log('preventDismiss not implemented');
 };
 
 dialogController.allowDismiss = function () {
-  throw 'allowDismiss not implemented';
+  console.log('allowDismiss not implemented');
 };
