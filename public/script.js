@@ -38,7 +38,7 @@ $(document).ready(function () {
     if (!recipientID) {
     	$('#no-recipient').show();
     	$('#overlay').hide();
-    	return console.error('no recipientID ID');
+    	return console.error('no recipientID set');
     }
 
     // Load spinner
@@ -229,8 +229,8 @@ function WelcomeDialog(opts) {
     };
     if (opts === undefined) opts = defaults;
     for (key in defaults) if (!(key in opts)) opts[key] = defaults[key];
-    
-    
+
+
     /** Private Variables */
     var self = this,
     	event = opts.event,
@@ -238,13 +238,13 @@ function WelcomeDialog(opts) {
     	recipients = opts.recipients,
     	view,
     	bg;
-    	
-    	
+
+
     /** Public Variables */
     this.view;
 
     /** Private Methods */
-    /** Public Methods */	
+    /** Public Methods */
     this.dismiss_async = function(dismissOpts, complete) {
     	bg.animate({
     		opacity: 0
@@ -255,11 +255,11 @@ function WelcomeDialog(opts) {
     	});
     };
     this.render = function() {};
-    
-    
+
+
     /** Init */
     (function() {
-    	bg = $('<div/>').appendTo('body').css({
+    	bg = $('<div/>', {'id': 'welcome-dialog-bg'}).appendTo('body').css({
     		position: 'absolute',
     		width: '100%',
     		height: '100%',
@@ -312,7 +312,7 @@ function WelcomeDialog(opts) {
     		invitationString += '.';
     	}
 
-    	
+
 
     	self.view = view = $(
     		'<div class="welcome-dialog">'+
@@ -336,7 +336,7 @@ function WelcomeDialog(opts) {
     	view.appendTo(bg);
 
     	$('.yat-btn', view).click(function() {
-    		if (self.close) self.close();
+    		if (self.close) $('#welcome-dialog-bg').hide(); //self.close();
     	});
     })();
 }
@@ -347,24 +347,24 @@ function StudentNamePopup(opts) {
     };
     if (opts === undefined) opts = defaults;
     for (key in defaults) if (!(key in opts)) opts[key] = defaults[key];
-    
-    
+
+
     /** Private Variables */
     var self = this,
     	view;
-    	
-    	
+
+
     /** Public Variables */
     this.view;
 
     /** Private Methods */
-    /** Public Methods */	
+    /** Public Methods */
     this.dismiss = function() {
     	view.remove();
     };
     this.render = function() {};
-    
-    
+
+
     /** Init */
     (function() {
     	console.log('init');
@@ -384,7 +384,7 @@ function StudentNamePopup(opts) {
 /////////////
 
 var queryString = (function() {
-	// This function is anonymous, is executed immediately and 
+	// This function is anonymous, is executed immediately and
 	// the return value is assigned to QueryString!
 	var query_string = {};
 	var query = window.location.search.substring(1);
@@ -402,7 +402,7 @@ var queryString = (function() {
 		} else {
 			query_string[pair[0]].push(pair[1]);
 		}
-	} 
+	}
 	return query_string;
 })();
 
