@@ -1,68 +1,39 @@
-var constants = require('./constants');
+var constants = require('./constants'),
+    _ = require('underscore'),
+    express = require('express'),
+    bodyParser = require('body-parser'),
+    multipart = require('connect-multiparty'),
+    mongoose = require('mongoose'),
+    Event = require('./models/event.js'),
+    Recipient = require('./models/recipient.js'),
+    emailParser = require('./emailParser.js'),
+    emailSender = require('./emailSender.js'),
 
-var _ = require('underscore');
-var express = require('express');
-var bodyParser = require('body-parser');
-var multipart = require('connect-multiparty');
+    app = express(),
+    db = mongoose.connection,
+    Schema = mongoose.Schema;
 
-var emailParser = require('./emailParser.js');
-var emailSender = require('./emailSender.js');
 
-var app = express();
+// Setup app
 app.use(express.static('public'));
 app.use(multipart());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
-
 app.use(function(req, res, next) {
-    // Website you wish to allow to connect
     res.setHeader('Access-Control-Allow-Origin', '*');
-    // Request methods you wish to allow
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-    // Request headers you wish to allow
     res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With, content-type');
-    // Set to true if you need the website to include cookies in the requests sent
-    // to the API (e.g. in case you use sessions)
     res.setHeader('Access-Control-Allow-Credentials', true);
-    // Pass to next layer of middleware
     next();
 });
 
-var mongoose = require('mongoose'),
-	Schema = mongoose.Schema;
-
-var db = mongoose.connection;
+// Setup database connection
 db.on('error', console.log);
 db.once('open', function() {
-	console.log('connected');
+	 console.log('Connected to mongodb');
 });
-
 mongoose.connect(constants.MONGODB_URL);
 
-var eventSchema = new Schema({
-	name: String,
-	description: String,
-	eventTime: Number,
-    address: String,
-    city: String,
-    wantFood: Boolean,
-	lat: Number,
-	lng: Number,
-	date: {type: Date, default: Date.now},
-	recipientIDs: [{type: Schema.Types.ObjectId, ref: 'Recipient'}]
-});
-
-var recipientSchema = new Schema({
-	eventID: {type: Schema.Types.ObjectId, ref: 'Event'},
-	name: String,
-	email: String,
-	isHost: Boolean,
-	lat: Number,
-	lng: Number
-});
-
-var Event = mongoose.model('Event', eventSchema);
-var Recipient = mongoose.model('Recipient', recipientSchema);
 
 var server = app.listen(process.env.PORT || 5000, function() {
     console.log('Listening on port %d', server.address().port);
