@@ -1,17 +1,18 @@
 var dialogController = function () {};
+var dialogList = [];
 
 dialogController.newDialog = function (dialog, opts) {
   dialog(opts);
 };
 
 dialogController.dismissAllDialogs = function () {
-  console.log('dismissAllDialogs not implemented');
+  $('.overlay-name-wrap').remove()
 };
 
 dialogController.preventDismiss = function () {
-  console.log('preventDismiss not implemented');
+  throw 'preventDismiss not implemented';
 };
 
 dialogController.allowDismiss = function () {
-  console.log('allowDismiss not implemented');
+  throw 'allowDismiss not implemented';
 };
