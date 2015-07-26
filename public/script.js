@@ -38,6 +38,11 @@ $(document).ready(function () {
     if (!recipientID) {
     	$('#no-recipient').show();
     	$('#overlay').hide();
+			$(".owl-carousel").owlCarousel({
+				loop:true,
+		    nav:true,
+				items: 1
+			});
     	return console.error('no recipientID set');
     }
 
