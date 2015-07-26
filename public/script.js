@@ -42,14 +42,17 @@ $(document).ready(function () {
 				loop:true,
 		    navigation:true,
 				items: 1,
-				autoHeight: true,
+				autoHeight: false,
 				transitionStyle: 'fade',
 		    margin:30,
 		    stagePadding:30,
 		    smartSpeed:450,
 				mouseDrag: false
 			});
-    	return console.error('no recipientID set');
+			if ($('#no-recipient').height() < $('.owl-carousel').height()) {
+				$('#no-recipient').height($('.owl-carousel').height());
+			}
+			return console.error('no recipientID set');
     }
 
     // Load spinner
