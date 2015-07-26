@@ -112,3 +112,6 @@ body {
   display: inline-block;
   vertical-align: middle;
   float: none; }
+
+.description-container {
+  padding-top: 20px; }

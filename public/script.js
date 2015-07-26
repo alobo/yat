@@ -40,8 +40,14 @@ $(document).ready(function () {
     	$('#overlay').hide();
 			$(".owl-carousel").owlCarousel({
 				loop:true,
-		    nav:true,
-				items: 1
+		    navigation:true,
+				items: 1,
+				autoHeight: true,
+				transitionStyle: 'fade',
+		    margin:30,
+		    stagePadding:30,
+		    smartSpeed:450,
+				mouseDrag: false
 			});
     	return console.error('no recipientID set');
     }
